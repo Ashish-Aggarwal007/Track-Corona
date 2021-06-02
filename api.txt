@@ -1,0 +1,3 @@
+API for covid-19 App 
+
+https://api.covid19api.com/summary

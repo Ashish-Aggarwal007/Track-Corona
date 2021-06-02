@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import React, { useState, useEffect} from 'react';
+import { Line, Bar, Pie, Polar } from 'react-chartjs-2';
 
 import { fetchDailyData } from '../../api';
 
@@ -18,53 +18,106 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
     fetchMyAPI();
   }, []);
 
-  const barChart = (
-    confirmed ? (
-      <Bar
-        data={{
-          labels: ['Infected', 'Recovered', 'Deaths'],
-          datasets: [
-            {
-              label: 'People',
-              backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
-              data: [confirmed.value, recovered.value, deaths.value],
-            },
-          ],
-        }}
-        options={{
-          legend: { display: false },
-          title: { display: true, text: `Current state in ${country}` },
-        }}
-      />
-    ) : null
-  );
+  // const barChart = (
+  //   confirmed ? (
+  //     <Bar
+  //       data={{
+  //         labels: ['Infected', 'Recovered', 'Deaths'],
+  //         datasets: [
+  //           {
+  //             label: 'People',
+  //             backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
+  //             data: [confirmed.value, recovered.value, deaths.value],
+  //           },
+  //         ],
+  //       }}
+  //       options={{
+  //         legend: { display: false },
+  //         title: { display: true, text: `Current state in ${country}` },
+  //       }}
+  //     />
+  //   ) : null
+  // );
 
   const lineChart = (
     dailyData[0] ? (
       <Line
         data={{
-          labels: dailyData.map(({ date }) => date),
+          labels:  dailyData.map(({ date }) => date),
           datasets: [{
             data: dailyData.map((data) => data.confirmed),
             label: 'Infected',
-            borderColor: '#3333ff',
-            fill: true,
+            lineTension: 0.1,
+		      	borderDashOffset: 0.0,
+			      backgroundColor: '#3333ff',
+			      borderColor: 'rgba(75,192,192,1)',
+            borderJoinStyle : 'miter',
+            borderCapStyle: 'butt',
+            pointBorderColor: '3333ff',
+            pointBackgroundColor: '#3333ff',
+            pointHoverBackgroundColor: '#3333ff',
+            pointHoverBorderColor: '#3333ff',
+            pointHoverBorderWidth: 2,
+            pointRadius: 3,
+			      pointHitRadius: 10,
+            fill: false,
           }, {
             data: dailyData.map((data) => data.deaths),
             label: 'Deaths',
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 0, 0, 0.5)',
-            fill: true,
+            lineTension: 0.1,
+		      	borderDashOffset: 0.0,
+			      backgroundColor: '#FD9B9C',
+			      borderColor: 'red',
+            borderJoinStyle : 'miter',
+            borderCapStyle: 'butt',
+            pointBorderColor: '#FD9B9C',
+            pointBackgroundColor: 'rgb(159, 75, 111)',
+            pointHoverBackgroundColor: 'rgb(159, 75, 111)',
+            pointHoverBorderColor: 'rgb(159, 75, 111)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 3,
+			      pointHitRadius: 10,
+          
+            //backgroundColor: 'rgba(255, 0, 0, 0.5)',          // change 
+            fill: false,
           },
           ],
         }}
       />
     ) : null
   );
+// Polar Area Chart or Pie chart   
+const PolarChart = (
+  confirmed ? (
+    <Polar
+      data={{
+        labels: ['Infected', 'Recovered', 'Deaths'],
+        datasets: [
+          {
+            label: 'People',
+            data: [confirmed.value, recovered.value, deaths.value],
+            //backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
+            backgroundColor: ['#36A2EB', '#02AC30', '#9F3636'],
+            //backgroundColor : ['#36A2EB', '#03D23B', '#000000'], #028526
+			      hoverBackgroundColor: ['#A2C8EB', '#03D23B', 'rgba(255, 0, 0, 0.5)']
+            
+          },
+        ],
+      }}
+      // options={{
+      //   legend: { display: false },
+      //   title: { display: true, text: `Current state in ${country}` },
+      // }}
+    />
+  ) : null
+);
+
+
+
 
   return (
     <div className={styles.container}>
-      {country ? barChart : lineChart}
+      {country ? PolarChart : lineChart}
     </div>
   );
 };
