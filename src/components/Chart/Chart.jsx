@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Line, Bar, Pie, Polar } from 'react-chartjs-2';
+import { Line,Polar } from 'react-chartjs-2';
 
 import { fetchDailyData } from '../../api';
 
