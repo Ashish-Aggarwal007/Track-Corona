@@ -12,7 +12,8 @@ const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
     <div className={styles.container } border = "dark">
       <Grid container spacing={3} justify="center">
         <CardComponent
-          className={styles.infected}          
+          className={styles.infected}    
+          //cardTitle = {country.value}      
           cardTitle="Infected"
           value={confirmed.value}
           lastUpdate={lastUpdate}

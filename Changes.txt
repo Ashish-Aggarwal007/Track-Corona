@@ -1,0 +1,9 @@
+Changes to corona app 
+
+Percentage (%) {
+Death rate 
+Recovery rate 
+People infection rate (infected rate) 
+}
+Rate Accordingly -
+Monthly / yearly /  per-Day 

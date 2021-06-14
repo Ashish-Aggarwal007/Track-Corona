@@ -89,7 +89,7 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
 // Polar Area Chart or Pie chart   
 const PolarChart = (
   confirmed ? (
-    <Polar
+    <Pie
       data={{
         labels: ['Infected', 'Recovered', 'Deaths'],
         datasets: [
